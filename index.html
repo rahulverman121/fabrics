@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>
+</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://rawgit.com/kangax/fabric.js/master/dist/fabric.min.js"></script>
+
+</head>
+<style>
+canvas{
+  border: 1px solid black;
+}
+</style>
+
+<body>
+
+
+
+
+<input type="file" id="file"><br />
+<canvas id="canvas" width="1200" height="750"></canvas>
+
+
+
+<script>
+
+var canvas = new fabric.Canvas('canvas');
+document.getElementById('file').addEventListener("change", function (e) {
+  var file = e.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function (f) {
+    var data = f.target.result; 
+                  
+    fabric.Image.fromURL(data, function (img) {
+      var oImg = img.set({left: 0, top: 0, angle: 0}).scale(0.5);
+      canvas.add(oImg).renderAll();
+      var a = canvas.setActiveObject(oImg);
+	
+    
+    
+	
+      var dataURL = canvas.toDataURL({format: 'png', quality: 0.8});
+    });
+
+      
+
+  };
+  reader.readAsDataURL(file);
+});
+
+
+canvas.on('mouse:wheel', function(opt) {
+  var delta = opt.e.deltaY;
+  var zoom = canvas.getZoom();
+  zoom *= 0.999 ** delta;
+  if (zoom > 20) zoom = 20;
+  if (zoom < 1) zoom = 1;
+  canvas.setZoom(zoom);
+  opt.e.preventDefault();
+  opt.e.stopPropagation();
+})
+
+</script>
+</body>
+</html>
