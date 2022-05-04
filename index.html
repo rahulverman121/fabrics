@@ -61,9 +61,9 @@ canvas.on('mouse:wheel', function(opt) {
   opt.e.preventDefault();
   opt.e.stopPropagation();
   var vpt = this.viewportTransform;
-if (zoom < 400 / 1000) {
-  vpt[4] = 200 - 1000 * zoom / 2;
-  vpt[5] = 200 - 1000 * zoom / 2;
+if (zoom < 4000 / 1000) {
+  vpt[4] = 200 - 400 * zoom / 2;
+  vpt[5] = 200 - 400 * zoom / 2;
 } else {
   if (vpt[4] >= 0) {
     vpt[4] = 0;
